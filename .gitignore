@@ -1,0 +1,6 @@
+media/
+__pycache__/
+migrations/
+venv/
+*.py[cod]
+*$py.class
