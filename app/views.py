@@ -1,11 +1,15 @@
-from django.shortcuts import render
 from .forms import Videosform
 from .models import Videos
+
+from django.db.models import Q
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 def index(request):
-    videos = ['video1', 'video2', 'video3', 'video4']
+    videos = Videos.objects.all()
     return render(request, 'index.html', {'videos':videos})
 
 def admin(request):
@@ -36,3 +40,52 @@ def admin(request):
         videos = Videos.objects.all()
         contex = {'videos':videos}
         return render(request, 'admin.html', contex)
+    
+def register(request):
+    if request.method == 'POST':
+        if User.objects.filter(email=request.POST["email"]).exists():
+            msg = "Este email ya existe"
+            return render(request, 'register.html', {'msg': msg})
+        elif User.objects.filter(username=request.POST["first_name"]).exists():
+            msg = "Este username ya existe"
+            return render(request, 'register.html', {'msg': msg})
+        else:
+            afterhashed = request.POST["password"]
+            user = User.objects.create_user(email=request.POST["email"],
+                                            password=request.POST["password"],
+                                            username=request.POST["first_name"],
+                                            first_name=request.POST["first_name"],
+                                            last_name=request.POST["last_name"])
+            user.save()
+            userl = authenticate(
+                request, username=user.username, password=afterhashed)
+            login(request, userl)
+            return redirect(index)
+    else:
+        return render(request, 'register.html')
+
+    
+def login_(request):
+    if request.user.is_authenticated:
+        return redirect(index)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        usuario = User.objects.filter(Q(username=username) | Q(email=username)).first()
+        user = authenticate(request, username=usuario, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(index)
+        else:
+            msg = 'Datos incorrectos, intente de nuevo'
+            return render(request, 'login.html', {'msg':msg})
+    else:
+        return render(request, 'login.html')
+       
+def logout_(request):
+    logout(request)
+    return redirect(index)
+
+def play_(request, id):
+    video = Videos.objects.get(id=id)
+    return render(request, 'play.html', {'video':video})

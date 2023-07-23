@@ -21,5 +21,9 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
+    path('register/', views.register),
+    path('login/', views.login_),
+    path('logout/', views.logout_),
+    path('play/<int:id>/', views.play_, name='play'),
     path('adminmenu', views.admin)
 ]

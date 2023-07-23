@@ -1,0 +1,21 @@
+{% extends "login.html" %}
+
+{% load static %}
+{% block login %}
+<form method="POST">
+    <h4 class="text-center mt-3">Register</h4>
+    <p style="color: rgb(255, 0, 0); text-align: center;">{{msg}}</p>
+    <p class="mb-0">E-mail</p>
+    <input name="email" class="outlinenone mb-4 bg-light" type="email" placeholder="Type your E-mail" required>
+    <p class="mb-0">Name</p>
+    <input name="first_name" class="outlinenone mb-4 bg-light" type="text" placeholder="Type your Name" required>
+    <p class="mb-0">Last Name</p>
+    <input name="last_name" class="outlinenone mb-4 bg-light" type="text" placeholder="Type your Last Name" required>
+    <p class="mb-0">Password</p>
+    <input name="password" class="outlinenone mb-5 bg-light" type="password" placeholder="Type your Password" required>
+    <div >
+        <button type="submit" class="btn first mb-4">Registrar</button>
+    </div>
+    {% csrf_token %}
+</form>
+{% endblock %}

@@ -14,7 +14,6 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 </head>
-
 <body>
   <header style="background-color: #1A237E;">
     <div class="row">
@@ -35,35 +34,40 @@
         <input type="search" class="outlinenone" placeholder="Buscar" name="Buscar">
       </div>
       <div class="col-2">
+        {% if request.user.is_authenticated %}
         <div class="dropdown">
-          <button style="color: white;" class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            SoplaX
+          <button class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ user }}
           </button>
           <ul class="dropdown-menu">
             <!-- Usuario admin -->
-            <li><a class="dropdown-item" href="">Menu administrador</a></li>
+            {% if user.is_staff %}
+            <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
+            {% endif %}
             <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
           </ul>
         </div>
+        {% else %}
+        <a class="button mt-1" href="/login">¡Logueate!</a>
+        {% endif %}
       </div>
     </div>
   </header>
+  {% block body %}
   <main style="background-color: #000000;">
     <div class="row pt-3 ms-5 me-5 text-center">
       {% for video in videos %}
-      <div class="col cards me-3">
-        <img src="{% static 'images/miniaturatemporal.png' %}" width="85%"> {{video}}
-      </div>
-      {% endfor %}
-    </div>
-    <div class="row pb-3 pt-3 ms-5 me-5 text-center">
-      {% for video in videos %}
-      <div class="col cards me-3">
-        <img src="{% static 'images/miniaturatemporal.png' %}" width="85%"> {{video}}
+      <div class="col-md-3">
+        <a href="{% url 'play' id=video.id %}">
+          <div class="cards ps-2 pe-2">
+            <img src="{% static 'images/miniaturatemporal.png' %}" width="85%"> {{video.nombre}}
+          </div>
+        </a>
       </div>
       {% endfor %}
     </div>
   </main>
+  {% endblock %}
   <footer style="background-color: #333333;">
     Ergale mamaguevo que vaina mela
   </footer>
@@ -76,5 +80,6 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
 </body>
+
 
 </html>
