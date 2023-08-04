@@ -7,6 +7,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <!-- Bootstrap CSS v5.2.1 -->
@@ -15,41 +16,43 @@
 
 </head>
 <body>
-  <header style="background-color: #1A237E;">
-    <div class="row">
-      <div class="col-2">
-        <img src="{% static 'images/logotemporal.png' %}" width="150" alt="XXX">
-      </div>
-      <div class="col-2">
-        <a href="/html/play.html">Hetero</a>
-      </div>
-      <div class="col-2">
-        <a href="">Gay</a>
-      </div>
-      <div class="col-2">
-        <a href="">Trans</a>
-      </div>
-      <div class="col-2 input mt-3 ps-2 pt-1">
-        <img width="25" src="https://cdn-icons-png.flaticon.com/512/64/64673.png">
-        <input type="search" class="outlinenone" placeholder="Buscar" name="Buscar">
-      </div>
-      <div class="col-2">
-        {% if request.user.is_authenticated %}
-        <div class="dropdown">
-          <button class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ user }}
-          </button>
-          <ul class="dropdown-menu">
-            <!-- Usuario admin -->
-            {% if user.is_staff %}
-            <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
-            {% endif %}
-            <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
-          </ul>
+  <header>
+    <div class="container-fluid">
+      <div style="background-color: #1A237E;" class="row">
+        <div class="col-2">
+          <img src="{% static 'images/logotemporal.png' %}" width="150" alt="XXX">
         </div>
-        {% else %}
-        <a class="button mt-1" href="/login">¡Logueate!</a>
-        {% endif %}
+        <div class="col-2 mt-3">
+          <a href="/html/play.html">Seccion 1</a>
+        </div>
+        <div class="col-2 mt-3">
+          <a href="">Seccion 2</a>
+        </div>
+        <div class="col-2 mt-3">
+          <a href="">Seccion 3</a>
+        </div>
+        <div class="col-2 input mt-2 mb-2 ps-2 pt-2">
+          <img width="25" src="https://cdn-icons-png.flaticon.com/512/64/64673.png">
+          <input type="search" class="outlinenone" placeholder="Buscar" name="Buscar">
+        </div>
+        <div class="col-2 mt-2">
+          {% if request.user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user }}
+            </button>
+            <ul class="dropdown-menu">
+              <!-- Usuario admin -->
+              {% if user.is_staff %}
+              <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
+            </ul>
+          </div>
+          {% else %}
+          <a class="button mt-1" href="/login">¡Logueate!</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </header>
@@ -60,7 +63,8 @@
       <div class="col-md-3">
         <a href="{% url 'play' id=video.id %}">
           <div class="cards ps-2 pe-2">
-            <img src="{% static 'images/miniaturatemporal.png' %}" width="85%"> {{video.nombre}}
+            <img src="{{video.miniatura.url}}" width="85%">
+            <p>{{video.nombre}}</p>
           </div>
         </a>
       </div>
@@ -71,6 +75,7 @@
   <footer style="background-color: #333333;">
     Ergale mamaguevo que vaina mela
   </footer>
+  <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

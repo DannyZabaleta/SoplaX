@@ -3,6 +3,7 @@ from .models import Videos
 
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
@@ -23,6 +24,7 @@ def admin(request):
                 video.descripcion = form.cleaned_data['descripcion']
                 video.categoria = form.cleaned_data['categoria']
                 video.miniatura = form.cleaned_data['miniatura']
+                video.video = form.cleaned_data['video']
                 video.save()
         videos = Videos.objects.all()
         contex = {'videos':videos}
@@ -88,4 +90,4 @@ def logout_(request):
 
 def play_(request, id):
     video = Videos.objects.get(id=id)
-    return render(request, 'play.html', {'video':video})
+    return render(request, 'play.html', {'video':video, 'url':video.video.url})

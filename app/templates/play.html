@@ -1,11 +1,29 @@
 {% extends "index.html" %}
 {% load static %}
 {% block body %}
-<main>
+<main class="container-fluid">
   <div class="row">
       <h1 class="text-center">Anuncio Perron</h1>
       <div class="col-10">
-        <iframe width="100%" height="520" src="https://www.youtube.com/embed/H16JwZn_v5w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <video
+          id="my-video"
+          class="video-js"
+          controls
+          preload="auto"
+          width="1280"
+          height="720"
+          poster="{{video.miniatura.url}}"
+          data-setup="{}"
+        >
+          <source src="{{video.video.url}}" type="video/mp4" />
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a
+            web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank"
+              >supports HTML5 video</a
+            >
+          </p>
+        </video>
         <h1 class="text-center">{{video.nombre}}</h1>
         <p>{{video.descripcion}}</p>
       </div>

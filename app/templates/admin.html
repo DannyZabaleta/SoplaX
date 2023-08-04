@@ -58,12 +58,14 @@
               <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del video">
               <label class="moproveedores">Miniatura:</label>
               <input class="form-control" type="file" name="miniatura">
+              <label class="moproveedores">Video:</label>
+              <input class="form-control" type="file" name="video">
               <label class="moproveedores">Categoria:</label>
               <select class="form-control" name="categoria">
                   <option value="">Seleciona una opción</option>
-                  <option value="hetero">Hetero</option>
-                  <option value="gay">Gay</option>
-                  <option value="trans">Trans</option>
+                  <option value="hetero">Seccion 1</option>
+                  <option value="gay">Seccion 2</option>
+                  <option value="trans">Seccion 3</option>
               </select>
               {% csrf_token %}
             </div>
