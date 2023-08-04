@@ -1,10 +1,12 @@
 {% extends "index.html" %}
 {% load static %}
 {% block body %}
-<main class="container-fluid">
+<main class="container-fluid pt-2" style="background-color: #101010;">
   <div class="row">
-      <h1 class="text-center">Anuncio Perron</h1>
-      <div class="col-10">
+    <div class="col-12 text-center mb-2">
+      <img src="{% static 'images/anuncioBanner.png' %}" width="100%">
+    </div>
+      <div class="col-12 col-md-10">
         <div class="video-wrapper">
           <video
             id="my-video"
@@ -26,11 +28,13 @@
             </p>
           </video>
         </div>
-        <h1 class="text-center">{{video.nombre}}</h1>
-        <p>{{video.descripcion}}</p>
+        <h1 style="color: white;">{{video.nombre}}</h1>
+        <div class="description ps-2 pe-2">
+          <p style="color: white;">{{video.descripcion}}</p>
+        </div>
       </div>
-      <div class="col-2">
-      <h1 class="text-center">Mas Anuncios MUAJA JAJAJA</h1>
+      <div class="d-none d-md-block col-md-2">
+        <img src="{% static 'images/anuncioAside.png' %}" height="600px" width="100%">
       </div>
   </div>
 </main>

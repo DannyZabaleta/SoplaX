@@ -1,11 +1,19 @@
+import smtplib
+import string
+import random
+
 from .forms import Videosform
 from .models import Videos
 
+from email.message import EmailMessage
+
 from django.db.models import Q
-from django.contrib.auth.models import User
 from django.conf import settings
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -74,6 +82,10 @@ def login_(request):
         username = request.POST['username']
         password = request.POST['password']
         usuario = User.objects.filter(Q(username=username) | Q(email=username)).first()
+        print(make_password(password)==usuario.password)
+        if not usuario.is_active and make_password(password)==usuario.password:
+            print("UwU")
+
         user = authenticate(request, username=usuario, password=password)
         if user is not None:
             login(request, user)
@@ -83,7 +95,46 @@ def login_(request):
             return render(request, 'login.html', {'msg':msg})
     else:
         return render(request, 'login.html')
+    
+def activate_user(request, usuario):
+    if request.method == 'POST':
+        usuario.set_password(request.POST['password1'])
+        usuario.is_active = True
+        usuario.save()
+        return redirect(login_)
+    else:
+        return render(request, 'activateUser.html')
+
+def recover_password(request):
+    email = request.POST.get('email')
+    if request.method == 'POST':
+        if User.objects.filter(email=email).exists():
+            receiver_email_address = email
+            email_subject = "Recupera tu contraseña"
+
+            comp = User.objects.get(email=request.POST["email"])
+            passhashed, cpassword = generar_password()
+            comp.password = passhashed
+            comp.is_active = False
+            comp.save()
+
+            print(sendEmail(email_subject, receiver_email_address, "Hola caballero, al parecer usted ha perdido el acceso a nuestra pagina web, este es su contraseña temporal: " + cpassword))
+
+            request.session['msg'] = "Se envio su nueva contraseña via correo, revise su bandeja"
+            return redirect(login_)
+        else:
+            msg = "Este email no esta registrado a nuestra pagina"
+        return render(request, "recoverPassword.html", {'msg':msg})
+    else:
+        return render(request, "recoverPassword.html")
        
+def generar_password(longitud=8):
+    caracteres = string.ascii_letters + string.digits
+    password = ''.join(random.choice(caracteres)
+                    for i in range(longitud))
+    passhashed = make_password(password)
+    return passhashed, password
+
 def logout_(request):
     logout(request)
     return redirect(index)
@@ -91,3 +142,20 @@ def logout_(request):
 def play_(request, id):
     video = Videos.objects.get(id=id)
     return render(request, 'play.html', {'video':video, 'url':video.video.url})
+
+def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
+    try:
+        message = EmailMessage()
+        message['Subject'] = subject
+        message['From'] = settings.SENDER_EMAIL_ADDRESS
+        message['To'] = receiverEmail
+        message.set_content(content)
+        server = smtplib.SMTP(settings.STMPURL, '587')
+        server.ehlo()
+        server.starttls()
+        server.login(settings.SENDER_EMAIL_ADDRESS, settings.EMAIL_PASSWORD)
+        server.send_message(message)
+        server.quit()
+        return True
+    except:
+        return False

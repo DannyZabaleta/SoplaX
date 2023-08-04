@@ -24,6 +24,7 @@ urlpatterns = [
     path('register/', views.register),
     path('login/', views.login_),
     path('logout/', views.logout_),
+    path('recover_password/', views.recover_password, name='recover'),
     path('play/<int:id>/', views.play_, name='play'),
     path('adminmenu', views.admin)
 ]
