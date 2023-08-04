@@ -1,7 +1,7 @@
 /* Login */
 .bg-gradient_roaz{
     background: rgb(98,217,223);
-    background: linear-gradient(45deg, rgb(0, 0, 0) 0%, #2d3f50 100%);
+    background: linear-gradient(45deg, #1A237E 0%, #101010 100%);
 }
 .blur{
     filter: blur(20px);
@@ -10,7 +10,7 @@
 .btn {
     box-sizing: border-box;
     background: rgb(98,217,223);
-    background: linear-gradient(45deg, rgb(0, 0, 0) 0%, #2d3f50 100%);
+    background: linear-gradient(45deg, #1A237E 0%, #101010 100%);
     border-radius: 2em;
     color: white;
     display: flex;
@@ -50,31 +50,6 @@
 main{
     font-family: 'Nunito', sans-serif;
 }
-/* Pantallas pequeñas */
-@media screen and (min-height: 200px) {
-    .divP{
-        margin-top: 7.58%;
-        margin-bottom: 7.58%;
-    }
-}
-/* Pantallas Grandes */
-@media screen and (min-height: 800px) {
-    .divP{
-        padding-top: 4%;
-        padding-bottom: 4%;
-        margin-top: 10.36%;
-        margin-bottom: 10.36%;
-    }
-}
-/* Moviles */
-/* @media screen and (min-height: 600px) and (min-width: 370px)  {
-    .divP{
-        margin-left: 11%;
-        margin-right: 11%;
-        margin-top: 47%;
-        margin-bottom: 47%;
-    }
-} */
 
 #button-send{
     border-radius: 15px;
