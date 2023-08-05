@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class Videosform(forms.ModelForm):
     class Meta:
         model = Videos
-        fields = ['nombre', 'descripcion', 'miniatura', 'video', 'categoria']
+        fields = ['nombre', 'descripcion', 'miniatura', 'video']
 
     def clean_video(self):
         video = self.cleaned_data['video']

@@ -7,6 +7,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
   <!-- Bootstrap CSS v5.2.1 -->
@@ -48,13 +49,13 @@
             <ul class="dropdown-menu">
               <!-- Usuario admin -->
               {% if user.is_staff %}
-              <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
+              <li><a class="dropdown-item" href="{% url 'adminmenu' %}">Menu administrador</a></li>
               {% endif %}
-              <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></li>
             </ul>
           </div>
           {% else %}
-          <a class="button mt-1" href="/login">¡Logueate!</a>
+          <a class="button mt-1" href="{% url 'login' %}">¡Logueate!</a>
           {% endif %}
         </div>
       </div>

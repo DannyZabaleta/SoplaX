@@ -25,7 +25,7 @@
                 <tr>
                     <th scope="col">Miniatura</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Categoria</th>
+                    <th scope="col">Visitas</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -36,7 +36,7 @@
                       <img width="150" src="{{video.miniatura.url}}">
                     </td>
                     <td>{{video.nombre}}</td>
-                    <td>{{video.categoria}}</td>
+                    <td>{{video.visitas}}</td>
                     <td class="tdfeo">
                       <button type="button" class="btn1" data-bs-toggle="modal" data-bs-target="#edit{{video.id}}">Editar <img class="edi" src="https://cdn-icons-png.flaticon.com/512/2830/2830022.png "></button>
                       <button type="button" class="btn2" data-bs-toggle="modal" data-bs-target="#delete{{video.id}}">Eliminar <img class="eli" src="https://cdn-icons-png.flaticon.com/512/1345/1345823.png "></button>
@@ -69,13 +69,6 @@
               <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del video">
               <label class="moproveedores">Miniatura:</label>
               <input class="form-control" type="file" name="miniatura">
-              <label class="moproveedores">Categoria:</label>
-              <select class="form-control" name="categoria">
-                  <option value="">Seleciona una opción</option>
-                  <option value="hetero">Hetero</option>
-                  <option value="gay">Gay</option>
-                  <option value="trans">Trans</option>
-              </select>
               {% csrf_token %}
             </div>
             <div class="modal-footer">
@@ -106,12 +99,6 @@
               <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del video" value="{{video.descripcion}}">
               <label class="moproveedores">Miniatura:</label>
               <input class="form-control" type="file" name="miniatura">
-              <label class="moproveedores">Categoria:</label>
-              <select class="form-control" name="categoria">
-                  <option value="Hetero">Hetero</option>
-                  <option value="Gay">Gay</option>
-                  <option value="Trans">Trans</option>
-              </select>
             </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

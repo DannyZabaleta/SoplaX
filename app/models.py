@@ -14,4 +14,4 @@ class Videos(models.Model):
     descripcion = models.CharField(max_length=1000, null=False)
     miniatura = models.FileField(upload_to='upload/photos')
     video = models.FileField(upload_to='upload/videos')
-    categoria = models.CharField(max_length=15, null=False)
+    visitas = models.IntegerField()

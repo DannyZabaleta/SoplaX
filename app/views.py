@@ -10,11 +10,13 @@ from email.message import EmailMessage
 from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
-from django.urls import reverse
 
 # Create your views here.
+
+def user_is_admin(user):
+    return user.is_authenticated and user.is_staff
 
 def index(request):
     if request.method == 'GET':
@@ -27,6 +29,7 @@ def search(request, txtbusqueda):
     busqueda = Videos.objects.filter(Q(nombre__icontains=txtbusqueda))
     return render(request, 'index.html',{'videos': busqueda, 'autocomplete':Videos.objects.all()})
 
+@user_passes_test(user_is_admin)
 def admin(request):
     if request.method == 'POST':
         form = Videosform(request.POST, request.FILES) 
@@ -36,12 +39,9 @@ def admin(request):
                 video = form.save(commit=False)
                 video.nombre = form.cleaned_data['nombre']
                 video.descripcion = form.cleaned_data['descripcion']
-                video.categoria = form.cleaned_data['categoria']
                 video.miniatura = form.cleaned_data['miniatura']
                 video.video = form.cleaned_data['video']
                 video.save()
-        videos = Videos.objects.all()
-        contex = {'videos':videos}
         if action == 'delete':
             video = Videos.objects.get(id=request.POST.get('id'))
             video.delete()
@@ -49,8 +49,9 @@ def admin(request):
             video = Videos.objects.get(id=request.POST.get('id'))
             video.nombre = request.POST.get('nombre')
             video.descripcion = request.POST.get('descripcion')
-            video.categoria = request.POST.get('categoria')
             video.save()
+        videos = Videos.objects.all()
+        contex = {'videos':videos}
         return render(request, 'admin.html', contex)
     else:
         videos = Videos.objects.all()
@@ -147,6 +148,8 @@ def logout_(request):
 
 def play_(request, id):
     video = Videos.objects.get(id=id)
+    video.visitas += 1
+    video.save()
     return render(request, 'play.html', {'video':video, 'url':video.video.url})
 
 def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
