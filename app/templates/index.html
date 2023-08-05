@@ -1,5 +1,5 @@
 <!doctype html>
-{% load static %}
+<!-- {% load static %} -->
 <html lang="en">
 
 <head>
@@ -7,84 +7,82 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
-
-  <!-- Video.js -->
-  <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
-
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <!--<link rel="stylesheet" href="{% static 'css/index.css' %}">-->
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 </head>
-<body>
-  <header>
-    <div class="container-fluid">
-      <div style="background-color: #1A237E;" class="row pt-1 pb-1">
-        <div class="col-3 col-md-1">
-          <img src="{% static 'images/logo.png' %}" height="75" alt="XXX">
-        </div>
-        <div class="d-none d-md-block col-md-2 mt-4 pt-2 text-center">
-          <a href="/html/play.html">Seccion 1</a>
-        </div>
-        <div class="d-none d-md-block col-md-2 mt-4 pt-2 text-center">
-          <a href="">Seccion 2</a>
-        </div>
-        <div class="d-none d-md-block col-md-2 mt-4 pt-2 text-center">
-          <a href="">Seccion 3</a>
-        </div>
-        <div class="col-5 col-md-3 mt-3">
-          <div class="input mt-2 ps-2 pt-1">
-            <img width="25" class="pb-1 pb-md-0" src="https://cdn-icons-png.flaticon.com/512/64/64673.png">
-            <input type="search" class="outlinenone" placeholder="Buscar" name="Buscar">
-          </div>
-        </div>
-        <div class="col-2 col-md-2 mt-3">
-          {% if request.user.is_authenticated %}
-          <div class="dropdown mt-1">
-            <button class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ user }}
-            </button>
-            <ul class="dropdown-menu">
-              <!-- Usuario admin -->
-              {% if user.is_staff %}
-              <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
-              {% endif %}
-              <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
-            </ul>
-          </div>
-          {% else %}
-          <a class="button mt-1" href="/login">¡Logueate!</a>
-          {% endif %}
+<body style="background-color: #000000;">
+  <header style="background-color: #1A237E;">
+   <div class="row"> 
+      <div class="col-2">
+        <img src="../../static/images/logo.png" style="margin-left: 10%;" width="75" alt="XXX">
+      </div>
+      <div class="col-2">
+        <a class="a" href="/html/play.html">Seccion1</a>
+      </div>
+      <div class="col-2">
+        <a class="a" href="">Seccion2</a>
+      </div>
+      <div class="col-2">
+        <a class="a" href="">Seccion3</a>
+      </div>
+      <div class="col">
+        <div class="input mt-3 ps-2 pt-1">
+          <img width="25" src="https://cdn-icons-png.flaticon.com/512/64/64673.png">
+          <input type="search" class="outlinenone" placeholder="Buscar" name="Buscar">
         </div>
       </div>
-    </div>
+      <div class="col-2">
+        <!-- {% if request.user.is_authenticated %} -->
+        <div class="dropdown">
+          <button class="btn button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- {{ user }} -->
+          </button>
+          <ul class="dropdown-menu">
+           <!-- Usuario admin -->
+           <!-- {% if user.is_staff %}
+            <li><a class="dropdown-item" href="/admin">Menu administrador</a></li>
+            {% endif %}
+            <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
+          </ul>
+        </div>
+        {% else %}
+        <a class="button mt-1" href="/login">¡Logueate!</a>
+        {% endif %}
+      </div>
+    </div> -->
   </header>
-  {% block body %}
-  <main class="container-fluid" style="background-color: #101010;">
-    <div class="row pt-3 ms-5 me-5 text-center">
-      {% for video in videos %}
-      <div class="col-md-3">
-        <a href="{% url 'play' id=video.id %}">
-          <div class="cards ps-2 pe-2">
-            <img src="{{video.miniatura.url}}" width="85%">
-            <p>{{video.nombre}}</p>
+
+      <!-- {% block body %} --> 
+      <div>
+        <div class="row pt-3 ms-5 me-5 text-center">
+         <!-- {% for video in videos %} -->
+          <div class="col-md-3">
+            <a href="{% url 'play' id=video.id %}">
+              <!-- <div class="cards ps-2 pe-2">
+                <img src="{% static 'images/miniaturatemporal.png' %}" width="85%"> {{video.nombre}}
+              </div> -->
+            </a>
           </div>
-        </a>
+          <!-- {% endfor %} --> 
+        </div>
       </div>
-      {% endfor %}
+      <!-- {% endblock %} -->
+      
+
+  <footer style="background-color: #1A237E;">
+    <div>
+        <h6 class="letricas">Hecho por un aprendiz SENA</h6>
+          <div class="logito">
+            <img src="../../static/images/logo-de-SENA-png-Negro-300x300.png" width="100">
+            <img src="../../static/images/logo.png" width="100">
+          </div>
     </div>
-  </main>
-  {% endblock %}
-  <footer style="background-color: #727272;">
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur, velit. Ullam, quibusdam maxime? Inventore, iusto! Impedit at ipsum ab atque quae voluptate consequuntur porro, quisquam recusandae, exercitationem, fugit quos! Doloribus repellat adipisci, quod dolorum ad ratione eius vitae. Tenetur dicta adipisci sequi modi asperiores quia necessitatibus excepturi numquam animi eligendi ducimus enim, accusantium eos eveniet maiores, eaque provident aperiam reiciendis tempore repellat veritatis. Voluptatibus eum earum quisquam ratione assumenda praesentium neque ab harum voluptates dignissimos officiis aperiam, eveniet, dolorum facilis pariatur quia ut adipisci iusto quae! Eligendi culpa consectetur ea sit quis nemo eaque, sunt quo odio cum saepe, porro quae temporibus. Officiis odio saepe placeat, laboriosam accusantium a perspiciatis, nihil ab nulla praesentium eius qui non, tenetur quod! Quasi culpa, corrupti sunt aliquid voluptate quisquam sequi cupiditate vero quo magni sit fugiat alias, recusandae tempora assumenda perspiciatis deserunt repellat distinctio eveniet eos excepturi hic eligendi dolorum. Distinctio quae impedit sequi aperiam exercitationem possimus, consectetur explicabo odit deserunt. Doloremque reprehenderit ipsam voluptates culpa facilis, minima, aut corporis eaque inventore temporibus sapiente quidem non. Vero accusantium a facere illo cum rem adipisci nostrum. Neque dignissimos nihil optio? Nesciunt sit vero fugit? Eius nihil cumque hic asperiores est, labore et ex adipisci eaque impedit repellendus illo, aliquam harum facilis fuga illum doloribus numquam sunt aliquid tempora magni consectetur alias beatae. Aliquam magni facilis inventore incidunt labore natus nihil eligendi dolores esse, nobis qui quis sint vitae beatae ipsa, rerum necessitatibus eaque expedita nesciunt, perspiciatis voluptatum voluptatem maiores voluptas! Magnam vitae voluptate quaerat sequi velit, numquam quo corporis assumenda! Explicabo maxime et iusto consequuntur in numquam quae cupiditate sed, repellat fuga amet dicta nostrum, quibusdam praesentium culpa voluptatem dignissimos pariatur debitis reiciendis, mollitia nobis eaque soluta! Quos repellendus, recusandae voluptatibus accusamus eveniet fuga consequuntur vitae reiciendis debitis perferendis fugiat architecto dolores ipsam deserunt?
+
   </footer>
-  <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
@@ -94,6 +92,4 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
 </body>
-
-
 </html>

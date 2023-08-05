@@ -1,0 +1,83 @@
+.body{
+    background-color: #010101;    
+}
+.table{
+    color: white;
+    background-color:#333333;
+    border-radius: 20px;
+}
+
+.table thead th{
+    color: white;
+    width: 20%;
+}
+.table tbody td {
+    color: white;
+  width: 18%;
+}
+
+.hola{
+    color: white;
+    background-color: #1A237E;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: center;
+}
+
+.buenas{
+    margin-left: 13%;
+}
+
+.btn1{
+    background-color: #1A237E;
+    color: white;
+    border-radius: 5px;
+    border-color: transparent;
+    margin-bottom: 10px;
+}
+
+.edi{
+    width: 11%;
+    height: 8%;
+}
+.btn2{
+    color: white;
+    background-color: rgb(253, 2, 2);
+    border-radius: 5px;
+    border-color: transparent;
+}
+.eli{
+    color: white;
+    width: 11%;
+    height: 8%;
+}
+
+.btn3{
+    color: black;
+    background-color: rgba(26, 211, 51, 0.699);
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.comoestas{
+    display: flex;
+    justify-content: center;
+}
+
+.btn1:hover {
+    background-color: #f4f7f8;
+    color: #000000;
+    transition: 0.5s;
+}
+
+.btn2:hover{
+    background-color: #fdfbfb;
+    color: rgb(8, 8, 8);
+    transition: 0.5s;
+}
+
+.btn3:hover{
+    background-color: #f4f7f8;
+    color: #000000;
+    transition: 0.5s;
+}
