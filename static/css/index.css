@@ -43,9 +43,6 @@ header a{
     background-color: rgba(248, 248, 248, 0);
     width: 75%;
 }
-.cards{
-    background-color: #333333;
-}
 .video-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* Relación de aspecto 16:9 (9 dividido por 16) */
@@ -70,7 +67,7 @@ header a{
 }
 
 footer {
-    position: fixed;
+    position: flex;
     bottom: 0;
     width: 100%;
     color: white;
@@ -86,4 +83,12 @@ footer {
 .letricas{
     font-weight: bold;
     padding-bottom: 1%;
+}
+.text-videos{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+.text-videos:hover{
+    color: rgb(103, 103, 103);
 }

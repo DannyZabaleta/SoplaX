@@ -3,7 +3,7 @@ import string
 import random
 
 from .forms import Videosform
-from .models import Videos
+from .models import Videos, Usuario
 
 from email.message import EmailMessage
 
@@ -11,15 +11,21 @@ from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
 # Create your views here.
 
 def index(request):
-    videos = Videos.objects.all()
-    return render(request, 'index.html', {'videos':videos})
+    if request.method == 'GET':
+        videos = Videos.objects.all()
+        return render(request, 'index.html', {'videos':videos, 'autocomplete':videos})
+    else:
+        return search(request, request.POST.get('search'))
+    
+def search(request, txtbusqueda):
+    busqueda = Videos.objects.filter(Q(nombre__icontains=txtbusqueda))
+    return render(request, 'index.html',{'videos': busqueda, 'autocomplete':Videos.objects.all()})
 
 def admin(request):
     if request.method == 'POST':
@@ -53,15 +59,15 @@ def admin(request):
     
 def register(request):
     if request.method == 'POST':
-        if User.objects.filter(email=request.POST["email"]).exists():
+        if Usuario.objects.filter(email=request.POST["email"]).exists():
             msg = "Este email ya existe"
             return render(request, 'register.html', {'msg': msg})
-        elif User.objects.filter(username=request.POST["first_name"]).exists():
+        elif Usuario.objects.filter(username=request.POST["first_name"]).exists():
             msg = "Este username ya existe"
             return render(request, 'register.html', {'msg': msg})
         else:
             afterhashed = request.POST["password"]
-            user = User.objects.create_user(email=request.POST["email"],
+            user = Usuario.objects.create_user(email=request.POST["email"],
                                             password=request.POST["password"],
                                             username=request.POST["first_name"],
                                             first_name=request.POST["first_name"],
@@ -79,12 +85,11 @@ def login_(request):
     if request.user.is_authenticated:
         return redirect(index)
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        usuario = User.objects.filter(Q(username=username) | Q(email=username)).first()
-        print(make_password(password)==usuario.password)
-        if not usuario.is_active and make_password(password)==usuario.password:
-            print("UwU")
+        usuario = Usuario.objects.filter(Q(email=email)).first()
+        if not usuario.is_active and password==usuario.temp_password:
+            return activate_user(request, usuario, password)
 
         user = authenticate(request, username=usuario, password=password)
         if user is not None:
@@ -96,29 +101,31 @@ def login_(request):
     else:
         return render(request, 'login.html')
     
-def activate_user(request, usuario):
-    if request.method == 'POST':
-        usuario.set_password(request.POST['password1'])
+def activate_user(request, usuario, password):
+    if request.POST['newpassword'] == 'True':
+        return render(request, 'activateUser.html', {'password':password, 'email':usuario.email})
+    else:
+        usuario.set_password(request.POST['newpassword'])
         usuario.is_active = True
+        usuario.temp_password = ''
         usuario.save()
         return redirect(login_)
-    else:
-        return render(request, 'activateUser.html')
+        
 
 def recover_password(request):
     email = request.POST.get('email')
     if request.method == 'POST':
-        if User.objects.filter(email=email).exists():
+        if Usuario.objects.filter(email=email).exists():
             receiver_email_address = email
             email_subject = "Recupera tu contraseña"
 
-            comp = User.objects.get(email=request.POST["email"])
-            passhashed, cpassword = generar_password()
-            comp.password = passhashed
+            comp = Usuario.objects.get(email=request.POST["email"])
+            password = generar_password()
+            comp.temp_password = password
             comp.is_active = False
             comp.save()
 
-            print(sendEmail(email_subject, receiver_email_address, "Hola caballero, al parecer usted ha perdido el acceso a nuestra pagina web, este es su contraseña temporal: " + cpassword))
+            print(sendEmail(email_subject, receiver_email_address, "Hola caballero, al parecer usted ha perdido el acceso a nuestra pagina web, este es su contraseña temporal: " + password))
 
             request.session['msg'] = "Se envio su nueva contraseña via correo, revise su bandeja"
             return redirect(login_)
@@ -132,8 +139,7 @@ def generar_password(longitud=8):
     caracteres = string.ascii_letters + string.digits
     password = ''.join(random.choice(caracteres)
                     for i in range(longitud))
-    passhashed = make_password(password)
-    return passhashed, password
+    return password
 
 def logout_(request):
     logout(request)
