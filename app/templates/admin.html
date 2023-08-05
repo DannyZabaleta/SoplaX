@@ -1,21 +1,26 @@
 <!doctype html>
+{% load static %}
 <html lang="en">
-
 <head>
   <title>Admin menu</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <link rel="stylesheet" href="../../static/css/admin.css">
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
 </head>
 
-<body>
-    <div class="table-responsive">
-        <table class="table table-primary">
+<body class="body">
+   <div class="hola">
+    <h1>Inventario</h1>
+   </div>
+   <div class="buenas">
+    <div class="col-10">
+      <div class="table-responsive">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Miniatura</th>
@@ -30,17 +35,21 @@
                     <td>{{video.miniatura}}</td>
                     <td>{{video.nombre}}</td>
                     <td>{{video.categoria}}</td>
-                    <td>
-                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit{{video.id}}">Editar</button>
-                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{video.id}}">Eliminar</button>
+                    <td class="tdfeo">
+                      <button type="button" class="btn1" data-bs-toggle="modal" data-bs-target="#edit{{video.id}}">Editar <img class="edi" src="https://cdn-icons-png.flaticon.com/512/2830/2830022.png "></button>
+                      <button type="button" class="btn2" data-bs-toggle="modal" data-bs-target="#delete{{video.id}}">Eliminar <img class="eli" src="https://cdn-icons-png.flaticon.com/512/1345/1345823.png "></button>
                     </td>
                 </tr>
               {% endfor %}
             </tbody>
         </table>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addvideo">Agregar</button>
+        <div class="comoestas">
+          <button type="button" class="btn3" data-bs-toggle="modal" data-bs-target="#addvideo">Agregar</button>
+        </div>
     </div>
     
+    </div>
+   </div>
     <!-- Modal para agregar videos -->
     <div class="modal fade" id="addvideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -58,14 +67,12 @@
               <input name="descripcion" type="text" class="form-control" placeholder="Descripcion del video">
               <label class="moproveedores">Miniatura:</label>
               <input class="form-control" type="file" name="miniatura">
-              <label class="moproveedores">Video:</label>
-              <input class="form-control" type="file" name="video">
               <label class="moproveedores">Categoria:</label>
               <select class="form-control" name="categoria">
                   <option value="">Seleciona una opción</option>
-                  <option value="hetero">Seccion 1</option>
-                  <option value="gay">Seccion 2</option>
-                  <option value="trans">Seccion 3</option>
+                  <option value="hetero">Hetero</option>
+                  <option value="gay">Gay</option>
+                  <option value="trans">Trans</option>
               </select>
               {% csrf_token %}
             </div>
