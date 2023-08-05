@@ -10,8 +10,8 @@ class Usuario(AbstractUser):
         return self.username
 
 class Videos(models.Model):
-    nombre = models.CharField(max_length=50, null=False)
-    descripcion = models.CharField(max_length=500, null=False)
+    nombre = models.CharField(max_length=100, null=False)
+    descripcion = models.CharField(max_length=1000, null=False)
     miniatura = models.FileField(upload_to='upload/photos')
     video = models.FileField(upload_to='upload/videos')
     categoria = models.CharField(max_length=15, null=False)

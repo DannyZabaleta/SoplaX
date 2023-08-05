@@ -92,3 +92,6 @@ footer {
 .text-videos:hover{
     color: rgb(103, 103, 103);
 }
+.miniatura{
+    border-radius: 5px;
+}
