@@ -26,5 +26,4 @@ urlpatterns = [
     path('logout/', views.logout_, name='logout'),
     path('recover_password/', views.recover_password, name='recover'),
     path('play/<str:id>/', views.play_, name='play'),
-    path('adminmenu/', views.admin, name='adminmenu')
 ]

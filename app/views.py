@@ -2,7 +2,6 @@ import smtplib
 import string
 import random
 
-from .forms import Videosform
 from .models import Videos, Usuario
 
 from email.message import EmailMessage
@@ -10,7 +9,6 @@ from email.message import EmailMessage
 from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -28,35 +26,6 @@ def index(request):
 def search(request, txtbusqueda):
     busqueda = Videos.objects.filter(Q(nombre__icontains=txtbusqueda))
     return render(request, 'index.html',{'videos': busqueda, 'autocomplete':Videos.objects.all()})
-
-@user_passes_test(user_is_admin)
-def admin(request):
-    if request.method == 'POST':
-        form = Videosform(request.POST, request.FILES) 
-        action = request.POST.get('action')
-        if action == 'add':
-            if form.is_valid():
-                video = form.save(commit=False)
-                video.nombre = form.cleaned_data['nombre']
-                video.descripcion = form.cleaned_data['descripcion']
-                video.miniatura = form.cleaned_data['miniatura']
-                video.video = form.cleaned_data['video']
-                video.save()
-        if action == 'delete':
-            video = Videos.objects.get(id=request.POST.get('id'))
-            video.delete()
-        if action == 'edit':
-            video = Videos.objects.get(id=request.POST.get('id'))
-            video.nombre = request.POST.get('nombre')
-            video.descripcion = request.POST.get('descripcion')
-            video.save()
-        videos = Videos.objects.all()
-        contex = {'videos':videos}
-        return render(request, 'admin.html', contex)
-    else:
-        videos = Videos.objects.all()
-        contex = {'videos':videos}
-        return render(request, 'admin.html', contex)
     
 def register(request):
     if request.method == 'POST':
