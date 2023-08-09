@@ -32,7 +32,8 @@ SECRET_KEY = 'django-insecure-x0cboqts_go*^zq-d6e02$d!xhkkd=%=31(h2^mm*l#1wyub3s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["soplaxxx.com", "www.soplaxxx.com"]
+CSRF_TRUSTED_ORIGINS = ["https://soplaxxx.com", "https://www.soplaxxx.com"]
 
 # settings.py
 AUTH_USER_MODEL = 'app.Usuario'  
