@@ -137,3 +137,6 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return True
     except:
         return False
+    
+def redirect_(request):
+    return render(request, 'redirect.html')
