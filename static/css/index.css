@@ -95,3 +95,18 @@ footer {
 .miniatura{
     border-radius: 5px;
 }
+
+.txtredirect{
+    color: white;
+    font-size: 20px;
+}
+
+.botonr{
+    display: flex;
+    justify-content: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.hastaelpiso{
+    position: fixed;
+}

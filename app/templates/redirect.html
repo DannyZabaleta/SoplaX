@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/css/index.css">
+
+</head>
+
+<body class="container-fluid" style="background-color: #171717;">
+  <header style="background-color: #1A237E;" class="row pt-1 pb-1">
+        <div class="col-3 col-md-1 mt-" >
+            <img class="mt-2" src="../../static/images/logo.png" style="margin-left: 10%;" width="100%" alt="XXX">
+        </div>
+
+  </header>
+  <main>
+    <div class="container">
+        <h1 class="text-center pt-4" style="color: white;">Tutorial</h1>
+        <p class="txtredirect">
+            Estimado usuario de TikTok,
+            En nombre de todo el equipo de SoplaX, queremos disculparnos sinceramente por las limitaciones que las políticas de TikTok imponen en cuanto a la redirección a nuestra página de contenido. Lamentablemente, no podemos proporcionar enlaces directos en nuestras publicaciones, pero estamos comprometidos en brindarles contenido valioso y alta calidad de todas formas.
+            Agradecemos su comprensión y le pedimos que entre al sigueinte enlace ofrecerle contenido audio-visual exquisito en esta plataforma.
+            Atentamente,
+
+            El equipo SoplaX
+        </p>
+        <div class="botonr">
+            <button style="color: wheat; background-color: #1A237E;" class="btn" id="startButton">Click aqui para obtener el link</button>
+            <div id="countdown"></div>
+            <div class="botonr" id="linkContainer" style="display:none;">
+                <input type="text" class="form-control" id="copiableInput" value="https://www.soplaxxx.com" readonly>
+                <button style="background-color: #1A237E;" class="btn" id="copyButton">Copiar</button>
+            </div>
+        </div>
+    </div>
+  </main>
+  <footer class="hastaelpiso" style="background-color: #1A237E;">
+    <div>
+        <h6 class="letricas">Hecho por un aprendiz SENA</h6>
+        <div class="logito">
+          <img src="../../static/images/logo.png" width="120">
+        </div>
+      </div>
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+
+<script>
+    document.getElementById("copyButton").addEventListener("click", function() {
+        var copiableInput = document.getElementById("copiableInput");
+        
+        copiableInput.select();
+        copiableInput.setSelectionRange(0, 99999); // Para dispositivos móviles
+        
+        document.execCommand("copy");
+        alert("¡Texto copiado al portapapeles!");
+    });
+</script>
+    
+  <script>
+
+    document.getElementById("startButton").addEventListener("click", function() {
+    var countdownElement = document.getElementById("countdown");
+    var linkContainer = document.getElementById("linkContainer");
+    var startButton = document.getElementById("startButton")
+    
+    countdownElement.innerHTML = "5";
+    countdownElement.style.display = "block";
+    startButton.style.display = "none";
+    
+    var count = 5;
+    var countdownInterval = setInterval(function() {
+        count--;
+        countdownElement.innerHTML = count;
+        
+        if (count === 0) {
+            clearInterval(countdownInterval);
+            countdownElement.style.display = "none";
+            linkContainer.style.display = "block";
+        }
+    }, 1000);
+});
+  </script>
+</body>
+
+</html>
